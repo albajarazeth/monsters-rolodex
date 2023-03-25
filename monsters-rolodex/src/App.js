@@ -11,6 +11,7 @@ class App extends Component{
 
     this.state = {
       monsters: [],
+      val: "",
     };
 
   }
@@ -22,18 +23,30 @@ class App extends Component{
       return {monsters: users}
     },
     () => {
-      console.log(this.state)
+      //console.log(this.state)
     }))
   }
 
+  //as user types displays the filtered list
   render(){ 
+
+
   return (
     <div className="App">
+    <input className='App' type='search' placeholder='search monsters' onChange={(event)=>{ this.setState((state)=>{
+      return {val: event.target.value}
+    },
+    ()=>{
+     console.log(this.state.val)
+    }
+    )}} />
+    
      {
-       this.state.monsters.map((monster)=> {
+       this.state.monsters.filter((el)=>el.name.includes(this.state.val)).map(monster =>{
         return(
-          <div key={monster.id}>
-            <h1>{monster.name}</h1>
+        
+          <div key={monster.id}> 
+          <h1>{monster.name}</h1>
           </div>
         )
        })
